@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AeroGuard AI - Final Pitch Deck</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* 1. THE SETUP */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #020202;
+            display: grid;
+            gap: 40px;
+            grid-template-columns: 1fr;
+            margin: 0;
+            min-height: 100vh;
+            padding: 40px 0;
+            place-items: center;
+        }
+
+        .slide-container {
+            align-items: center;
+            background-color: #050505;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            font-family: 'Urbanist', sans-serif;
+            height: 1000px;
+            justify-content: center;
+            overflow: hidden;
+            padding: 60px;
+            position: relative;
+            width: 1300px;
+            border: 1px solid #1a1a1a;
+        }
+
+        /* 1.1 BACKGROUND STYLING (AeroGuard Branding) */
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 10% 10%, rgba(222, 255, 154, 0.05) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .slide-container::after {
+            content: '';
+            position: absolute;
+            bottom: 40px;
+            left: 60px;
+            right: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(222, 255, 154, 0.3), transparent);
+            z-index: 0;
+        }
+
+        .slide-container>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 2. CONSISTENT TYPOGRAPHY */
+        .slide-container h1,
+        .slide-container h2,
+        .slide-container h3 {
+            color: #f5f5f5;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+            margin: 0;
+        }
+
+        .slide-container h1 span,
+        .slide-container h2 span {
+            color: #deff9a;
+        }
+
+        .slide-container p,
+        .slide-container li,
+        .slide-container .subtitle,
+        .slide-container .number-label {
+            color: #daffde;
+            font-family: 'Urbanist', sans-serif;
+            font-size: 20px;
+            line-height: 1.5;
+        }
+
+        .slide-container h1 {
+            font-size: 80px;
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+
+        .slide-container .slide-title {
+            font-size: 54px;
+            font-weight: 500;
+            margin-bottom: 40px;
+            text-align: left;
+            width: 100%;
+        }
+
+        .slide-container h3 {
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: #deff9a;
+        }
+
+        .content-area {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: center;
+            width: 100%;
+        }
+
+        /* 3. LAYOUT DEFINITIONS */
+        .title-layout {
+            text-align: center;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            width: 100%;
+            align-items: center;
+        }
+
+        .two-column.tiled>div {
+            background-color: #0f0f0f;
+            border-radius: 16px;
+            border: 1px solid rgba(222, 255, 154, 0.1);
+            padding: 40px;
+            height: 100%;
+        }
+
+        .image-wrapper {
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #333;
+            height: 350px;
+            width: 100%;
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .tiled-content {
+            display: flex;
+            gap: 30px;
+            width: 100%;
+        }
+
+        .tile {
+            background-color: #0f0f0f;
+            border-radius: 16px;
+            border: 1px solid rgba(222, 255, 154, 0.1);
+            flex: 1;
+            padding: 30px;
+            text-align: left;
+        }
+
+        .tile .icon {
+            color: #000;
+            background-color: #deff9a;
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        /* Highlight Numbers */
+        .highlight-numbers-layout>div:first-child {
+            text-align: center;
+        }
+
+        .highlight-numbers-layout .number {
+            color: #deff9a;
+            font-size: 150px;
+            font-weight: 700;
+            line-height: 1;
+            font-family: 'Space Grotesk';
+        }
+
+        /* Chart Styling */
+        .chart-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .bar {
+            align-items: center;
+            display: flex;
+            gap: 20px;
+        }
+
+        .bar .label {
+            color: #f5f5f5;
+            flex: 0 0 200px;
+            font-weight: 700;
+            text-align: right;
+        }
+
+        .bar .bar-inner {
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            flex-grow: 1;
+            height: 45px;
+            overflow: hidden;
+        }
+
+        .bar .bar-fill {
+            align-items: center;
+            color: #000;
+            display: flex;
+            font-weight: 700;
+            font-size: 30px;
+            height: 110%;
+            justify-content: flex-end;
+            padding-right: 15px;
+            background: #deff9a;
+        }
+
+        /* Timeline */
+        .timeline-layout {
+            display: flex;
+            align-items: stretch;
+            justify-content: space-between;
+            position: relative;
+            width: 100%;
+            height: stretch;
+        }
+
+        .timeline-line {
+            background-color: rgba(222, 255, 154, 0.2);
+            height: 4px;
+            left: 0;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-2px);
+            width: 100%;
+        }
+
+        .timeline-item {
+            position: relative;
+            text-align: center;
+            width: 23%;
+            z-index: 1;
+        }
+
+        .timeline-item::after {
+            background-color: #050505;
+            border: 4px solid #deff9a;
+            border-radius: 50%;
+            content: '';
+            height: 20px;
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+        }
+
+        .timeline-item .content-wrapper {
+            position: absolute;
+            width: 100%;
+            left: 0;
+        }
+
+        .timeline-item:nth-child(odd) .content-wrapper {
+            bottom: 50%;
+            margin-bottom: 25px;
+        }
+
+        .timeline-item:nth-child(even) .content-wrapper {
+            top: 50%;
+            margin-top: 25px;
+        }
+
+        /* Bleed Image Right (Strict Structure) */
+        .slide-container.bleed-image-layout {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 50px;
+            padding: 0;
+            align-items: start;
+        }
+
+        .slide-container.bleed-image-layout>.content-container {
+            padding: 60px 0 60px 60px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slide-container.bleed-image-layout .image-container {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+        }
+
+        .slide-container.bleed-image-layout img.bleed-image-side {
+            height: 720px;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 0 8px 8px 0;
+            display: block;
+        }
+
+        /* Q&A */
+        .qa-layout {
+            text-align: center;
+            width: 100%;
+        }
+
+        .qa-layout h2 {
+            font-size: 80px;
+            color: #deff9a;
+        }
+
+        /* --- NEW: PRINT SETTINGS FOR PERFECT PDF EXPORT --- */
+        @media print {
+            @page {
+                size: 16in 9in;
+                /* Forces a perfect widescreen 16:9 aspect ratio */
+                margin: 0;
+                /* Removes default white browser margins */
+            }
+
+            body {
+                gap: 0;
+                padding: 0;
+                background-color: #020202;
+                display: block;
+            }
+
+            .slide-container {
+                page-break-after: always;
+                /* Forces a new page after every slide */
+                break-after: page;
+                margin: 0;
+                border: none;
+                box-shadow: none;
+                width: 100%;
+                height: 100vh;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="slide-container" id="slide1">
+        <div class="title-layout">
+            <h1><span><img src="images/logo2.png" alt="Aeroguard AI Logo" style="height: 200px;"></span>
+            </h1>
+            <p class="subtitle" style="font-size: 40px;">Autonomous Aerial Intelligence for Infrastructure Protection
+            </p>
+            <p
+                style="margin-top: 40px; color: #a3b899; text-transform: uppercase; letter-spacing: 2px; font-size: 30px;">
+                Team
+                Lead:
+                Akhabue Emmanuel | Geothermal Rising Energy Hackathon 2026 </p>
+        </div>
+    </div>
+
+    <div class="slide-container" id="slide2">
+        <h2 class="slide-title" style="font-size: 40px;">The <span>Crisis</span> in the Niger-Delta Region</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <h3 style="font-size: 40px;">Invisible Threats</h3>
+                    <p style="font-size: 30px;">Nigeria loses billions annually to pipeline vandalism and crude oil
+                        theft. Current monitoring
+                        relies on foot patrols or delayed satellite passes, meaning spills often go unnoticed for days.
+                    </p>
+                    <p style="font-size: 30px;">The remote terrain makes traditional ground security crews slow and
+                        ineffective against
+                        coordinated criminal syndicates.</p>
+                </div>
+                <div>
+                    <div class="image-wrapper">
+                        <img src="http://googleusercontent.com/image_collection/image_retrieval/5385869407667518977"
+                            alt="Aerial view of heavy oil pollution in tropical river delta">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container" id="slide3">
+        <h2 class="slide-title">The <span>Latency</span> Problem</h2>
+        <div class="content-area">
+            <div class="two-column tiled">
+                <div>
+                    <h3 style="font-size: 40px;">Chemical Kinematics</h3>
+                    <p style="font-size: 30px;">Once crude oil is discharged, mass transfer forces cause rapid
+                        expansion. Without immediate
+                        detection, the oil emulsifies in local waterways, making remediation exponentially more
+                        expensive.</p>
+                </div>
+                <div>
+                    <h3 style="font-size: 40px;">Detection Window</h3>
+                    <p style="font-size: 30px;">AeroGuard shrinks the response time from days to
+                        <strong>milliseconds</strong>. Early
+                        identification is the only way to prevent minor leaks from becoming regional ecological
+                        disasters.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container" id="slide4">
+        <h2 class="slide-title">Introducing <span>AeroGuard</span></h2>
+        <div class="content-area">
+            <div class="two-column" style="grid-template-columns: 400px 1fr; align-items: center;">
+                <div
+                    style="border-radius: 50%; overflow: hidden; border: 4px solid #deff9a; width: 400px; height: 400px;">
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/6081532705925384374"
+                        style="width: 100%; height: 100%; object-fit: cover;" alt="AI brain illustration">
+                </div>
+                <div style="padding-left: 40px;">
+                    <h3 style="font-size: 40px;">Edge AI Command Center</h3>
+                    <p style="font-size: 30px;">AeroGuard AI is an autonomous remote monitoring infrastructure that
+                        leverages Computer Vision to
+                        protect pipeline corridors.</p>
+                    <p style="font-size: 30px;">We combine drone telemetry with a fine-tuned <strong>YOLOv8</strong>
+                        object detection engine to
+                        provide instantaneous, localized intelligence on pipeline breaches and slicks.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container" id="slide5">
+        <h2 class="slide-title" style="margin-bottom: -300px;">Model <span>Performance</span> Metrics</h2>
+        <div class="content-area">
+            <div class="chart-container">
+                <div class="bar">
+                    <span>
+                        <div class="label" style="font-size: 25px;">mAP50 (Accuracy)</div>
+                    </span>
+                    <div class="bar-inner" style="height: 75px;">
+                        <div class="bar-fill" style="width: 82.8%;">82.8%</div>
+                    </div>
+                </div>
+                <div class="bar">
+                    <div class="label" style="font-size: 25px;">Recall</div>
+                    <div class="bar-inner" style="height: 75px;">
+                        <div class="bar-fill" style="width: 79.8%;">79.8%</div>
+                    </div>
+                </div>
+                <div class="bar">
+                    <div class="label" style="font-size: 25px;">Precision</div>
+                    <div class="bar-inner" style="height: 75px;">
+                        <div class="bar-fill" style="width: 78.3%;">78.3%</div>
+                    </div>
+                </div>
+            </div>
+            <p style="margin-top: 30px; font-style: italic; text-align: center; font-size: 25px;">Validation metrics
+                from v1.3 production
+                model after 50-epoch fine-tuning on NVIDIA T4 GPU.</p>
+        </div>
+    </div>
+
+    <div class="slide-container" id="slide6"
+        style="background-image: linear-gradient(rgba(2, 2, 2, 0.7), rgba(2, 2, 2, 0.7)), url('https://placehold.co/1280x720/0f172a/f5f5f5?text=User+Dashboard+Alert+Screenshot'); background-size: cover; background-position: center;">
+        <div style="text-align: center; width: 100%;">
+            <img src="" alt="Confidence Level">
+            <!-- <h2 style="font-size: 64px; color: #f43f5e; margin-bottom: 20px;">88.1% Confidence</h2> -->
+            <p style="font-size: 30px; max-width: 900px; margin: 0 auto;">
+                Peak confidence score recorded during live
+                system testing on real aerial oil spill imagery. Our dashboard instantly flags spatial anomalies,
+                drawing bounding boxes over spills and localizing the threat in real-time.</p>
+        </div>
+    </div>
+
+
+    <div class="slide-container" id="slide8">
+        < <h2 class="slide-title">Live <span>Demonstration</span></h2>
+            <div class="content-area">
+                <div class="two-column" style="align-items: stretch; gap: 40px;">
+                    <div
+                        style="background: #0f0f0f; border: 1px solid rgba(222,255,154,0.2); border-radius: 12px; padding: 30px; text-align: center; display: flex; flex-direction: column;">
+                        <h4 style="color: #deff9a; font-size: 30px; letter-spacing: 2px; margin-bottom: 20px;">DRONE
+                            FEED
+                            ANALYSIS</h4>
+                        <div class="image-wrapper" style="flex-grow: 1; border: none; background: #000;">
+                            <!-- Replace this src with the left panel test_image screenshot -->
+                            <img src="https://placehold.co/500x350/1a1a1a/f43f5e?text=Dashboard+Screenshot%5CnOil+Spill+88.1%25"
+                                alt="Dashboard showing aerial oil spill with red bounding box"
+                                style="object-fit: contain;">
+                        </div>
+                    </div>
+                    <div
+                        style="background: #0f0f0f; border: 1px solid rgba(222,255,154,0.2); border-radius: 12px; padding: 30px; text-align: center; display: flex; flex-direction: column;">
+                        <h4 style="color: #deff9a; font-size: 30px; letter-spacing: 2px; margin-bottom: 20px;">WHATSAPP
+                            FIELD ALERT</h4>
+                        <div class="image-wrapper"
+                            style="flex-grow: 1; border: 4px solid #222; border-radius: 20px; padding: 5px; background: #000; width: 60%; margin: 0 auto;">
+                            <!-- Replace this src with the WhatsApp alert screenshot -->
+                            <img src="https://placehold.co/300x500/0a0a0a/25D366?text=WhatsApp+Alert%5Cn2+Spills+Detected"
+                                alt="WhatsApp screenshot showing Twilio alert message"
+                                style="border-radius: 12px; object-fit: contain;">
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 40px;">
+                    <p
+                        style="color: #deff9a; font-size: 30px; font-weight: 700; font-family: 'Space Grotesk', sans-serif;">
+                        Upload &rarr; Detect &rarr; Alert &rarr; Respond</p><br><br>
+                    <p style="color: #fff; font-size: 16px; font-style: italic; margin-top: 10px;">Full pipeline
+                        executes in
+                        under 3 seconds</p>
+                </div>
+            </div>
+    </div>
+
+    <div class="slide-container" id="slide9">
+        <h2 class="slide-title">The <span>Technical</span> Backbone</h2>
+        <div class="content-area">
+            <div class="tiled-content">
+                <div class="tile">
+                    <div class="icon"><i class="fa-solid fa-code"></i></div>
+                    <h3 style="font-size: 40px;">Backend</h3>
+                    <p style="font-size: 30px;">FastAPI Python engine handling asynchronous image array processing with
+                        6.1ms inference speed.
+                    </p>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fa-solid fa-brain"></i></div>
+                    <h3 style="font-size: 40px;"><span>Computer Vision </span></h3>
+                    <p style="font-size: 30px;">Ultralytics YOLOv8 architecture optimized for real-time spatial object
+                        detection in remote
+                        environments.</p>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fa-solid fa-database"></i></div>
+                    <h3 style="font-size: 40px;">Data Ledger</h3>
+                    <p style="font-size: 30px;">Structured incident logging via FastAPI. Every detection event is
+                        recorded with timestamp,
+                        confidence score, detection count, bounding box coordinates, and GPS location for full
+                        auditability.</p><br>
+                </div>
+            </div>
+        </div>
+    </div><br><br>
+
+    <div class="slide-container" id="slide10">
+        <h2 class="slide-title" style="font-size: 40px;">Economic <span>Preservation</span></h2>
+        <div class="content-area">
+            <div class="two-column highlight-numbers-layout">
+                <div>
+                    <div class="number">₦1B+</div>
+                    <div class="number-label">Potential Annual Recovery</div>
+                </div>
+                <div>
+                    <h3 style="font-size: 40px;">Protecting Yield</h3>
+                    <p style="font-size: 30px;">By eradicating detection latency, AeroGuard AI preserves massive amounts
+                        of oil volume previously
+                        lost to theft and discharge.</p>
+                    <p style="font-size: 30px;">Catching spills at the surface sheen stage before emulsification, costs
+                        up to 10x less to
+                        remediate than post-emulsification cleanup. AeroGuard makes early detection the default, not the
+                        exception.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container" id="slide11">
+        <h2 class="slide-title" style="font-size: 40px;">Phase 2: <span>Future</span> Scale</h2>
+        <div class="content-area">
+            <div class="tiled-content">
+                <div class="tile">
+                    <div class="icon"><i class="fa-solid fa-eye-slash"></i></div>
+                    <h3 style="font-size: 40px;">Night Vision</h3>
+                    <p style="font-size: 30px;">Integration of multi-spectral IR sensors to detect underground pipe
+                        stress and clandestine
+                        night-time bunkering.</p>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fa-solid fa-microchip"></i></div>
+                    <h3 style="font-size: 40px;">Edge Deployment</h3>
+                    <p style="font-size: 30px;">Compiling weights via TensorRT to run AI natively on drone
+                        microcontrollers without internet
+                        dependency.</p>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fa-solid fa-satellite"></i></div>
+                    <h3 style="font-size: 40px;">Swarm Monitoring</h3>
+                    <p style="font-size: 30px;">Coordinated drone swarms for continuous 24/7 surveillance across
+                        thousands of kilometers of
+                        pipeline corridor.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container" id="slide12">
+        <div style="width: 100%;"><br><br><br><br>
+            <h2 class="slide-title" style="margin-bottom: 10px; font-size: 40px;">Meet <span>Team Codecatalysts</span>
+            </h2>
+            <p style="color: #888; font-size: 30px; margin-bottom: 40px; font-weight: 500;">Geothermal Rising Energy
+                Hackathon 2026 | Built on a NVIDIA T4 GPU</p>
+        </div>
+        <div class="content-area">
+            <div class="two-column tiled">
+                <div style="display: flex; flex-direction: column;">
+                    <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 25px;">
+                        <!-- REPLACE SRC HERE WITH YOUR LOCAL PHOTO e.g., src="images/emmanuel.jpg" -->
+                        <img src="images/emmanuel.jpg" alt="Akhabue Emmanuel Profile"
+                            style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 2px solid #deff9a;">
+                        <div>
+                            <h3 style="margin-bottom: 5px; font-size: 30px ;">Akhabue Ehime Emmanuel</h3>
+                            <p style="color: #fff; font-weight: 700; margin: 0; font-size: 30px;">Team Lead & ML
+                                Engineer</p>
+                        </div>
+                    </div>
+                    <p style="flex-grow: 1; font-size: 30px;">Chemical Engineering background with self-taught
+                        full-stack AI development
+                        skills. Responsible for YOLOv8 model training, FastAPI backend architecture, Twilio alert
+                        integration, and system deployment.</p>
+                    <p style="color: #deff9a; font-size: 30px; margin-top: 30px;">#MachineLearning #Computer Vision
+                        #Deep learning #BackendDev #ChemicalEngineering</p>
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                    <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 25px;">
+                        <!-- REPLACE SRC HERE WITH COFOUNDER'S LOCAL PHOTO e.g., src="images/cofounder.jpg" -->
+                        <img src="images/download (2).png" alt="Cofounder Profile"
+                            style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 2px solid #deff9a;">
+                        <div>
+                            <h3 style="margin-bottom: 5px; font-size: 30px;">Omoikhefe Michael Omoikhoje</h3>
+                            <p style="color: #fff; font-weight: 700; margin: 0; font-size: 30px;">Frontend Engineer</p>
+                        </div>
+                    </div>
+                    <p style="flex-grow: 1; font-size: 30px;">Also Chemical Engineering Background with Web Development
+                        Skills.
+                        Responsible for the AeroGuard AI command center dashboard UI, Leaflet.js incident map
+                        integration, canvas bounding box renderer, and drag-and-drop image upload experience.</p>
+                    <p style="color: #deff9a; font-size: 16px; margin-top: -30px; font-size: 30px;">#Frontend #LeafletJS
+                        #UIDesign #WebDev
+                        #ChemicalEngineering</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
+```

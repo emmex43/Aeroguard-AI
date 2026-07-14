@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AeroGuard AI — Command Center</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    #map { height: 300px; z-index: 1; }
+    #drop-zone.dragover { border-color: #10b981; background-color: #064e3b22; }
+    .scanning { animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen">
+
+  <!-- Header -->
+  <header class="border-b border-slate-700 px-8 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center text-slate-900 font-bold text-sm">AG</div>
+      <span class="text-xl font-bold tracking-tight">AeroGuard <span class="text-emerald-400">AI</span></span>
+    </div>
+    <div class="flex items-center gap-2 text-sm text-slate-400">
+      <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
+      System Operational
+    </div>
+  </header>
+
+  <!-- Main Grid -->
+  <main class="grid grid-cols-1 lg:grid-cols-2 gap-6 p-8">
+
+    <!-- LEFT COLUMN -->
+    <div class="flex flex-col gap-6">
+
+      <!-- Stats Bar -->
+      <div class="grid grid-cols-3 gap-4">
+        <div class="bg-slate-800 rounded-xl p-4 border border-slate-700">
+          <p class="text-xs text-slate-400 uppercase tracking-widest">Status</p>
+          <p id="stat-status" class="text-lg font-bold text-emerald-400 mt-1">Standby</p>
+        </div>
+        <div class="bg-slate-800 rounded-xl p-4 border border-slate-700">
+          <p class="text-xs text-slate-400 uppercase tracking-widest">Detections</p>
+          <p id="stat-count" class="text-lg font-bold text-white mt-1">—</p>
+        </div>
+        <div class="bg-slate-800 rounded-xl p-4 border border-slate-700">
+          <p class="text-xs text-slate-400 uppercase tracking-widest">Confidence</p>
+          <p id="stat-confidence" class="text-lg font-bold text-white mt-1">—</p>
+        </div>
+      </div>
+
+      <!-- Drop Zone -->
+      <div
+        id="drop-zone"
+        class="border-2 border-dashed border-slate-600 rounded-xl p-10 text-center cursor-pointer hover:border-emerald-500 transition-colors"
+        onclick="document.getElementById('file-input').click()"
+      >
+        <div class="text-4xl mb-3">🛰️</div>
+        <p class="text-slate-300 font-medium">Drop drone image here</p>
+        <p class="text-slate-500 text-sm mt-1">or click to browse</p>
+        <input type="file" id="file-input" accept="image/*" class="hidden"/>
+      </div>
+      <div id="progress-container" class="w-full min-h-6"></div>
+
+      <!-- Preview filename -->
+      <p id="file-name" class="text-sm text-slate-500 -mt-2 text-center"></p>
+
+      <!-- Analyze Button -->
+      <button
+  id="analyze-btn"
+  onclick="autoAnalyze()"
+  class="w-full bg-slate-700 hover:bg-emerald-600 text-white font-bold py-4 rounded-xl transition-colors text-lg tracking-wide"
+>
+  ↺ Re-scan Image
+</button>
+
+      <!-- Alert Panel -->
+      <div id="alert-panel" class="hidden bg-slate-800 border border-slate-700 rounded-xl p-5">
+        <p class="text-xs text-slate-400 uppercase tracking-widest mb-3">Last Detection</p>
+        <div id="alert-content" class="text-sm text-slate-300 space-y-1"></div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="flex flex-col gap-6">
+
+      <!-- Canvas -->
+      <div class="bg-slate-800 border border-slate-700 rounded-xl p-4">
+        <p class="text-xs text-slate-400 uppercase tracking-widest mb-3">Drone Feed Analysis</p>
+        <canvas
+          id="image-canvas"
+          class="w-full rounded-lg bg-slate-900"
+          style="min-height: 250px;"
+        ></canvas>
+        <p id="canvas-placeholder" class="text-slate-600 text-sm text-center py-8">
+          No image loaded
+        </p>
+      </div>
+
+      <!-- Map -->
+      <div class="bg-slate-800 border border-slate-700 rounded-xl p-4">
+        <p class="text-xs text-slate-400 uppercase tracking-widest mb-3">Incident Map — Niger Delta</p>
+        <div id="map" class="rounded-lg overflow-hidden"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
